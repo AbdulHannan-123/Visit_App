@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:advantureing_app/provider/great_places.dart';
 import 'package:advantureing_app/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   static const routeName = '/add-place';
@@ -13,6 +17,20 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
 
   final _titleController = TextEditingController();
+   File? _pickedImage;
+
+  void _selectImge(File pickedImage){
+    _pickedImage = pickedImage;
+  }
+
+  void _savePlace(){
+    if(_titleController.text.isEmpty || _pickedImage == null){
+      print(_pickedImage);
+      return;
+    }
+    Provider.of<GreatPlaces>(context, listen: false).addPlace(_titleController.text, _pickedImage!);
+    Navigator.of(context).pop();
+  }
 
 
   @override
@@ -36,7 +54,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       controller: _titleController,
                     ),
                     const SizedBox(height: 10,),
-                    ImageInput()
+                    ImageInput(_selectImge)
                   ],
                 ),
               ),
@@ -45,10 +63,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           RaisedButton.icon(
             icon: const Icon(Icons.add),
             label: const Text('Add Place'),
-            onPressed: () {},
+            onPressed: _savePlace,
             elevation: 0,
-            materialTapTargetSize: MaterialTapTargetSize
-                .shrinkWrap, // to remove all the extra space after the remuval of elevation
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // to remove all the extra space after the remuval of elevation
             color: Theme.of(context).colorScheme.primary,
             textColor: Colors.white,
           )

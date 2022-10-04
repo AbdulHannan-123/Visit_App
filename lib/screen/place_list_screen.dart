@@ -1,22 +1,40 @@
+import 'package:advantureing_app/provider/great_places.dart';
 import 'package:advantureing_app/screen/add_place_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class PlacesListScreen extends StatelessWidget {
-  const PlacesListScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Places'),
-        actions: [IconButton(onPressed: () {
-          Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
-        }, icon: const Icon(Icons.add))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: Consumer<GreatPlaces>(
+        child: const Center(
+          child: Text('Start Adding Something'),
+        ),
+        builder: (ctx, greatplaces, ch) => greatplaces.items.isEmpty
+            ? ch!
+            : ListView.builder(
+                itemCount: greatplaces.items.length,
+                itemBuilder: (context, index) => ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: FileImage(greatplaces.items[index].image),
+                  ),
+                  title: Text(greatplaces.items[index].title),
+                  onTap: (){
+                    // Go to details page
+                  },
+                ),
+              ),
       ),
     );
   }
