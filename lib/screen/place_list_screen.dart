@@ -15,8 +15,8 @@ class PlacesListScreen extends StatelessWidget {
           Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
         }, icon: const Icon(Icons.add))],
       ),
-      body:const Column(
-        children:[ CircularProgressIndicator()],
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
