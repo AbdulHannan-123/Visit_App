@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:advantureing_app/helper/db_helper.dart';
+
 import '../models/place.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -18,5 +20,10 @@ class GreatPlaces with ChangeNotifier {
         title: pickedtitle);
     _items.add(newPlace);
     notifyListeners();
+    DBHelper.insert('places', {
+      'id': newPlace.id,
+      'title': newPlace.title,
+      'image' : newPlace.image
+    });
   }
 }
