@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:advantureing_app/provider/great_places.dart';
-import 'package:advantureing_app/widgets/image_input.dart';
+import '../provider/great_places.dart';
+import '../widgets/image_input.dart';
+import '../widgets/location_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
@@ -54,7 +53,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       controller: _titleController,
                     ),
                     const SizedBox(height: 10,),
-                    ImageInput(_selectImge)
+                    ImageInput(_selectImge),
+                    const SizedBox(height: 10,),
+                    LocationInput()
                   ],
                 ),
               ),
