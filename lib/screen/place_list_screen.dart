@@ -17,24 +17,34 @@ class PlacesListScreen extends StatelessWidget {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        child: const Center(
-          child: Text('Start Adding Something'),
-        ),
-        builder: (ctx, greatplaces, ch) => greatplaces.items.isEmpty
-            ? ch!
-            : ListView.builder(
-                itemCount: greatplaces.items.length,
-                itemBuilder: (context, index) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(greatplaces.items[index].image),
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false)
+            .fatchAndSetPlaces(),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Consumer<GreatPlaces>(
+                    child: const Center(
+                      child: Text('Start Adding Something'),
+                    ),
+                    builder: (ctx, greatplaces, ch) => greatplaces.items.isEmpty
+                        ? ch!
+                        : ListView.builder(
+                            itemCount: greatplaces.items.length,
+                            itemBuilder: (context, index) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    FileImage(greatplaces.items[index].image),
+                              ),
+                              title: Text(greatplaces.items[index].title),
+                              onTap: () {
+                                // Go to details page
+                              },
+                            ),
+                          ),
                   ),
-                  title: Text(greatplaces.items[index].title),
-                  onTap: (){
-                    // Go to details page
-                  },
-                ),
-              ),
       ),
     );
   }
