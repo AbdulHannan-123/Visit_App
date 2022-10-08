@@ -1,5 +1,6 @@
 import 'package:advantureing_app/provider/great_places.dart';
 import 'package:advantureing_app/screen/add_place_screen.dart';
+import 'package:advantureing_app/screen/place_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class PlacesListScreen extends StatelessWidget {
             .fatchAndSetPlaces(),
         builder: (context, snapshot) =>
             snapshot.connectionState == ConnectionState.waiting
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : Consumer<GreatPlaces>(
@@ -39,9 +40,13 @@ class PlacesListScreen extends StatelessWidget {
                                     FileImage(greatplaces.items[index].image),
                               ),
                               title: Text(greatplaces.items[index].title),
-                              subtitle: Text(greatplaces.items[index].location!.address.toString()),
+                              subtitle: Text(greatplaces
+                                  .items[index].location!.address
+                                  .toString()),
                               onTap: () {
-                                // Go to details page
+                                Navigator.of(context).pushNamed(
+                                    PlaceDetailScreen.routeName,
+                                    arguments: greatplaces.items[index].id);
                               },
                             ),
                           ),

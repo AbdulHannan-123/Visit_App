@@ -1,5 +1,6 @@
 import 'package:advantureing_app/provider/great_places.dart';
 import 'package:advantureing_app/screen/add_place_screen.dart';
+import 'package:advantureing_app/screen/place_detail_screen.dart';
 import 'package:advantureing_app/screen/place_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         home: PlacesListScreen(),
         routes: {
           AddPlaceScreen.routeName:(context) => AddPlaceScreen(),
+          PlaceDetailScreen.routeName:(context) => PlaceDetailScreen()
         },
       ),
     );
