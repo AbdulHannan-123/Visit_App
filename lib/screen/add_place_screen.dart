@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:advantureing_app/models/place.dart';
+
 import '../provider/great_places.dart';
 import '../widgets/image_input.dart';
 import '../widgets/location_input.dart';
@@ -17,17 +19,22 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
 
   final _titleController = TextEditingController();
    File? _pickedImage;
+   PlaceLocation? _pickedLocation;
 
   void _selectImge(File pickedImage){
     _pickedImage = pickedImage;
   }
 
+  void _selectPlace(double lat , double lon){
+    _pickedLocation = PlaceLocation(latitude: lat, longitude: lon);
+  }
+
   void _savePlace(){
-    if(_titleController.text.isEmpty || _pickedImage == null){
+    if(_titleController.text.isEmpty || _pickedImage == null || _pickedLocation== null){
       print(_pickedImage);
       return;
     }
-    Provider.of<GreatPlaces>(context, listen: false).addPlace(_titleController.text, _pickedImage!);
+    Provider.of<GreatPlaces>(context, listen: false).addPlace(_titleController.text, _pickedImage!, _pickedLocation!);
     Navigator.of(context).pop();
   }
 
@@ -55,7 +62,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     const SizedBox(height: 10,),
                     ImageInput(_selectImge),
                     const SizedBox(height: 10,),
-                    LocationInput()
+                    LocationInput(_selectPlace)
                   ],
                 ),
               ),
