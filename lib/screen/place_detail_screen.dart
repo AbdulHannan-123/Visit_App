@@ -54,7 +54,7 @@ class PlaceDetailScreen extends StatelessWidget {
             },
             color: Theme.of(context).colorScheme.primary,
             child: const Text(
-              'View on Map',
+              'See on Map',
             ),
           )
         ],
