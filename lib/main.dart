@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          // primarySwatch: Colors.teal,
           colorScheme: ColorScheme.fromSwatch().copyWith(
                   primary:const Color(0xff1c3f39),
                   secondary: const Color(0xffe9e6d7),
